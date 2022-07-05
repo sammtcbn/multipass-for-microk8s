@@ -1,18 +1,17 @@
 #!/bin/bash
-#multipass exec node1 -- microk8s add-node --format short | head -1
-#multipass exec node1 -- microk8s add-node
+source ./cfg.bash
 
 function show_node()
 {
-  echo multipass exec node1 -- kubectl get node
-  multipass exec node1 -- kubectl get node
+  echo multipass exec ${MainInstances} -- kubectl get node
+  multipass exec ${MainInstances} -- kubectl get node
 }
 
 function join_cluster()
 {
   for instance in "$@"
   do
-    cmd=$(multipass exec node1 -- microk8s add-node --format short | head -1)
+    cmd=$(multipass exec ${MainInstances} -- microk8s add-node --format short | head -1)
     #echo ${cmd}
     echo multipass exec $instance -- ${cmd}
     multipass exec $instance -- ${cmd}
@@ -21,15 +20,17 @@ function join_cluster()
 
 function wait_all_node_ready()
 {
-  echo multipass exec node1 -- kubectl wait --for=condition=Ready nodes --all --timeout=600s
-  multipass exec node1 -- kubectl wait --for=condition=Ready nodes --all --timeout=600s
+  echo multipass exec ${MainInstances} -- kubectl wait --for=condition=Ready nodes --all --timeout=600s
+  multipass exec ${MainInstances} -- kubectl wait --for=condition=Ready nodes --all --timeout=600s
 }
 
 show_node
 
 echo
 
-join_cluster node2 node3
+join_cluster ${MemberInstances}
+
+sleep 5
 
 echo
 

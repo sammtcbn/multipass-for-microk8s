@@ -1,4 +1,6 @@
 #!/bin/bash
+source ./cfg.bash
+
 function del_instance()
 {
   for instance in "$@"
@@ -8,7 +10,8 @@ function del_instance()
   done
 }
 
-del_instance node1 node2 node3
+#del_instance node1 node2 node3
+del_instance ${AllInstances}
 
 echo multipass purge
 multipass purge

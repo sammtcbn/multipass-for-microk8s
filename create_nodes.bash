@@ -1,4 +1,6 @@
 #!/bin/bash
+source ./cfg.bash
+
 function create_instance()
 {
   for instance in "$@"
@@ -11,7 +13,8 @@ function create_instance()
 echo sudo snap install multipass --classic
 sudo snap install multipass --classic
 
-create_instance node1 node2 node3
+#create_instance node1 node2 node3
+create_instance ${AllInstances}
 
 echo multipass list
 multipass list

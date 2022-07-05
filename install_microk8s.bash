@@ -1,4 +1,6 @@
 #!/bin/bash
+source ./cfg.bash
+
 function install_mk8s()
 {
   for instance in "$@"
@@ -47,9 +49,9 @@ function alias_config()
   done
 }
 
-install_mk8s node1 node2 node3
-wait_mk8s_ready node1 node2 node3
-basic_addon_install node1 node2 node3
-wait_mk8s_ready node1 node2 node3
-alias_config node1 node2 node3
+install_mk8s ${AllInstances}
+wait_mk8s_ready ${AllInstances}
+basic_addon_install ${AllInstances}
+wait_mk8s_ready ${AllInstances}
+alias_config ${AllInstances}
 
