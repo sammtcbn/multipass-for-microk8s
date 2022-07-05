@@ -1,15 +1,17 @@
 #!/bin/bash
+function create_instance()
+{
+  for instance in "$@"
+  do
+    echo multipass launch -c 2 -m 2G -d 8G -n $instance
+    multipass launch -c 2 -m 2G -d 8G -n $instance
+  done
+}
+
 echo sudo snap install multipass --classic
 sudo snap install multipass --classic
 
-echo multipass launch -c 2 -m 2G -d 8G -n node1
-multipass launch -c 2 -m 2G -d 8G -n node1
-
-echo multipass launch -c 2 -m 2G -d 8G -n node2
-multipass launch -c 2 -m 2G -d 8G -n node2
-
-echo multipass launch -c 2 -m 2G -d 8G -n node3
-multipass launch -c 2 -m 2G -d 8G -n node3
+create_instance node1 node2 node3
 
 echo multipass list
 multipass list

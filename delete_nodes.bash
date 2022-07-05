@@ -1,12 +1,14 @@
 #!/bin/bash
-echo multipass delete node1
-multipass delete node1
+function del_instance()
+{
+  for instance in "$@"
+  do
+    echo multipass delete $instance
+    multipass delete $instance
+  done
+}
 
-echo multipass delete node2
-multipass delete node2
-
-echo multipass delete node3
-multipass delete node3
+del_instance node1 node2 node3
 
 echo multipass purge
 multipass purge
